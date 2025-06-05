@@ -1,0 +1,19 @@
+{
+  "name": "neeti-portfolio",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "aos": "^2.3.4",
+    "gsap": "^3.12.5",
+    "swiper": "^11.0.6"
+  },
+  "devDependencies": {
+    "vite": "^5.0.8"
+  }
+}
