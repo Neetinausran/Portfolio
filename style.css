@@ -965,79 +965,11 @@ nav {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Portfolio Highlights */
-.portfolio-highlights {
-    background: var(--card-bg);
-    padding: 50px;
-    border-radius: 30px;
-    border: 1px solid var(--card-border);
-    box-shadow: var(--shadow-card);
-    text-align: center;
-}
-
-.highlights-title {
-    font-size: 2rem;
-    margin-bottom: 15px;
-    color: var(--text-color);
-    font-weight: 700;
-}
-
-.highlights-subtitle {
-    font-size: 1.1rem;
-    color: var(--text-muted);
-    margin-bottom: 40px;
-    font-style: italic;
-}
-
-.highlights-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 25px;
-}
-
-.highlight-item {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 15px;
-    transition: var(--transition);
-    border: 1px solid rgba(196, 132, 252, 0.1);
-}
-
-.highlight-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(196, 132, 252, 0.1);
-    background: rgba(255, 255, 255, 0.8);
-}
-
-.highlight-item i {
-    width: 40px;
-    height: 40px;
-    background: var(--gradient-primary);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 18px;
-    flex-shrink: 0;
-    box-shadow: 0 4px 15px rgba(196, 132, 252, 0.2);
-}
-
-.highlight-item span {
-    color: var(--text-color);
-    font-weight: 600;
-    font-size: 0.95rem;
-}
-
 /* Responsive Design for Leadership Section */
 @media (max-width: 768px) {
     .leadership-grid {
         grid-template-columns: 1fr;
         gap: 25px;
-        margin-bottom: 60px;
     }
     
     .leadership-card {
@@ -1053,23 +985,6 @@ nav {
     
     .leadership-content h3 {
         font-size: 1.2rem;
-    }
-    
-    .portfolio-highlights {
-        padding: 35px;
-    }
-    
-    .highlights-title {
-        font-size: 1.6rem;
-    }
-    
-    .highlights-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-    
-    .highlight-item {
-        padding: 18px;
     }
 }
 
@@ -1097,34 +1012,6 @@ nav {
     .leadership-badge {
         padding: 8px 15px;
         font-size: 0.85rem;
-    }
-    
-    .portfolio-highlights {
-        padding: 25px;
-    }
-    
-    .highlights-title {
-        font-size: 1.4rem;
-    }
-    
-    .highlights-subtitle {
-        font-size: 1rem;
-        margin-bottom: 30px;
-    }
-    
-    .highlight-item {
-        padding: 15px;
-        gap: 12px;
-    }
-    
-    .highlight-item i {
-        width: 35px;
-        height: 35px;
-        font-size: 16px;
-    }
-    
-    .highlight-item span {
-        font-size: 0.9rem;
     }
 }
 
