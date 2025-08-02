@@ -1736,7 +1736,7 @@ footer {
     }
     
     .stats-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
         gap: 24px;
     }
     
@@ -1789,6 +1789,12 @@ footer {
     
     .profile-image {
         max-width: 150px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        max-width: 300px;
     }
     
     .stat-card {
