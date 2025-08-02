@@ -116,7 +116,14 @@
                              loading="eager"
                              width="360" 
                              height="360"
-                             decoding="async">
+                             decoding="async"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="profile-fallback" style="display: none;">
+                            <div class="fallback-avatar">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <div class="fallback-text">Neeti Nausran</div>
+                        </div>
                         <div class="profile-glow"></div>
                     </div>
                 </div>
@@ -296,7 +303,7 @@
                                 </div>
                                 <div class="value-text">
                                     <h4>Growth Catalyst</h4>
-                                    <p>Driving business growth through strategic financial analysis and reporting</p>
+                                    <p>Driving business growth through strategic financial analysis and reporting. Delivered 15% cost reduction at Styleyn Pro Clothing through optimized financial processes and strategic HR-Finance integration.</p>
                                 </div>
                             </div>
                         </div>
