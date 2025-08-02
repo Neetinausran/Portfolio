@@ -379,6 +379,66 @@ if ('serviceWorker' in navigator) {
     });
 }
 
+// Profile image fallback system
+function updateProfileImage(workingSrc) {
+    const profileImg = document.querySelector('.profile-image');
+    const fallback = document.querySelector('.profile-fallback');
+    
+    if (profileImg && workingSrc) {
+        profileImg.src = workingSrc;
+        profileImg.style.display = 'block';
+        profileImg.style.opacity = '1';
+        if (fallback) fallback.style.display = 'none';
+        console.log('Profile image loaded successfully:', workingSrc);
+    }
+}
+
+// Enhanced profile image loading
+document.addEventListener('DOMContentLoaded', () => {
+    const profileImg = document.querySelector('.profile-image');
+    const fallback = document.querySelector('.profile-fallback');
+    
+    // Try different image paths
+    const imagePaths = [
+        'WhatsApp Image 2025-05-01 at 13.34.27_7e81fe82.jpg',
+        './WhatsApp Image 2025-05-01 at 13.34.27_7e81fe82.jpg',
+        '/WhatsApp Image 2025-05-01 at 13.34.27_7e81fe82.jpg',
+        './public/WhatsApp Image 2025-05-01 at 13.34.27_7e81fe82.jpg',
+        'https://stackblitz.com/storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBCQndKaFFFPSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--bd27fe28fdde8e63081a70e3edfdcdbfcb155436//WhatsApp Image 2025-05-01 at 13.34.27_7e81fe82.jpg'
+    ];
+    
+    let currentIndex = 0;
+    
+    function tryNextImage() {
+        if (currentIndex < imagePaths.length) {
+            const testImg = new Image();
+            testImg.onload = function() {
+                if (profileImg) {
+                    profileImg.src = this.src;
+                    profileImg.style.opacity = '1';
+                    if (fallback) fallback.style.display = 'none';
+                    console.log('Profile image loaded:', this.src);
+                }
+            };
+            testImg.onerror = function() {
+                currentIndex++;
+                tryNextImage();
+            };
+            testImg.src = imagePaths[currentIndex];
+        } else {
+            // All images failed, show fallback
+            if (profileImg) profileImg.style.display = 'none';
+            if (fallback) {
+                fallback.style.display = 'flex';
+                console.log('Using fallback profile display');
+            }
+        }
+    }
+    
+    // Start trying images
+    setTimeout(tryNextImage, 100);
+});
+
 // Reduce motion for accessibility
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 if (prefersReducedMotion.matches) {
