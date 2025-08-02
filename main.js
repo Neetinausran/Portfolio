@@ -335,6 +335,19 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         img.src = profileImage.src;
     }
+    
+    // Enhanced certification logo loading
+    const certLogos = document.querySelectorAll('.cert-logo img');
+    certLogos.forEach(img => {
+        img.addEventListener('load', () => {
+            img.style.opacity = '1';
+        });
+        
+        img.addEventListener('error', () => {
+            console.warn('Certification logo failed to load:', img.src);
+            // The onerror attribute in HTML will handle the fallback display
+        });
+    });
 });
 
 // Performance monitoring

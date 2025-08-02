@@ -1865,6 +1865,27 @@ nav {
     max-height: 70px;
     object-fit: contain;
     filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
+    transition: var(--transition);
+}
+
+.cert-logo img:hover {
+    transform: scale(1.05);
+}
+
+.fallback-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+    line-height: 1;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    transition: var(--transition);
+}
+
+.fallback-icon:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
 }
 
 .cert-logo i {
