@@ -1,23 +1,33 @@
-// Initialize AOS
-AOS.init({
-    duration: 1000,
-    once: true
+// Simple fade-in animation for elements
+function animateOnScroll() {
+    const elements = document.querySelectorAll('[data-aos]');
+    const windowHeight = window.innerHeight;
+    
+    elements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        
+        if (elementTop < windowHeight - 100) {
+            element.style.opacity = '1';
+            element.style.transform = 'translateY(0)';
+        }
+    });
+}
+
+// Initialize elements for animation
+document.addEventListener('DOMContentLoaded', () => {
+    const elements = document.querySelectorAll('[data-aos]');
+    elements.forEach(element => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(30px)';
+        element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    });
+    
+    // Initial check
+    animateOnScroll();
 });
 
-// Initialize Swiper
-const swiper = new Swiper('.swiper-container', {
-    slidesPerView: 1,
-    spaceBetween: 30,
-    pagination: {
-        el: '.swiper-pagination',
-        clickable: true
-    },
-    breakpoints: {
-        768: {
-            slidesPerView: 2
-        }
-    }
-});
+// Listen for scroll events
+window.addEventListener('scroll', animateOnScroll);
 
 // Active navigation highlighting
 const sections = document.querySelectorAll('section[id]');
@@ -41,24 +51,6 @@ window.addEventListener('scroll', () => {
     });
 });
 
-// Custom cursor
-const cursor = document.querySelector('.cursor');
-const cursorFollower = document.querySelector('.cursor-follower');
-
-document.addEventListener('mousemove', (e) => {
-    gsap.to(cursor, {
-        x: e.clientX,
-        y: e.clientY,
-        duration: 0.1
-    });
-    
-    gsap.to(cursorFollower, {
-        x: e.clientX,
-        y: e.clientY,
-        duration: 0.3
-    });
-});
-
 // Mobile menu
 const menuBtn = document.querySelector('.menu-btn');
 const navLinks = document.querySelector('.nav-links');
@@ -78,11 +70,34 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Parallax effect on hero section
-window.addEventListener('scroll', () => {
+// Optimized scroll effects
+let ticking = false;
+
+function updateScrollEffects() {
     const scrolled = window.pageYOffset;
+    const header = document.querySelector('header');
+    
+    // Header shadow effect
+    if (scrolled > 50) {
+        header.classList.add('scrolled');
+    } else {
+        header.classList.remove('scrolled');
+    }
+    
+    // Subtle parallax on hero
     const heroContent = document.querySelector('.hero-content');
-    heroContent.style.transform = `translateY(${scrolled * 0.5}px)`;
+    if (heroContent && scrolled < window.innerHeight) {
+        heroContent.style.transform = `translateY(${scrolled * 0.3}px)`;
+    }
+    
+    ticking = false;
+}
+
+window.addEventListener('scroll', () => {
+    if (!ticking) {
+        requestAnimationFrame(updateScrollEffects);
+        ticking = true;
+    }
 });
 
 // Form submission
@@ -92,4 +107,16 @@ form.addEventListener('submit', (e) => {
     // Add your form submission logic here
     alert('Thank you for your message! I will get back to you soon.');
     form.reset();
+});
+
+// Preload critical images
+document.addEventListener('DOMContentLoaded', () => {
+    const profileImage = document.querySelector('.profile-image');
+    if (profileImage) {
+        const img = new Image();
+        img.onload = () => {
+            profileImage.style.opacity = '1';
+        };
+        img.src = profileImage.src;
+    }
 });
