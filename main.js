@@ -13,9 +13,9 @@ const swiper = new Swiper('.swiper-container', {
         clickable: true
     },
     breakpoints: {
-        header.classList.add('scrolled');
+        768: {
             slidesPerView: 2
-        header.classList.remove('scrolled');
+        }
     }
 });
 
