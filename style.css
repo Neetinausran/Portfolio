@@ -542,6 +542,9 @@ nav {
     -webkit-text-fill-color: transparent;
     background-clip: text;
     margin-bottom: 16px;
+    opacity: 1;
+    visibility: visible;
+    display: block;
 }
 
 .stat-label {
@@ -549,6 +552,21 @@ nav {
     font-size: 15px;
     font-weight: 500;
     letter-spacing: 0.5px;
+    opacity: 1;
+    visibility: visible;
+    display: block;
+}
+
+/* Ensure stats are always visible */
+.stats-grid .stat-card {
+    opacity: 1;
+    visibility: visible;
+    display: block;
+}
+
+.stats-grid .stat-card * {
+    opacity: 1;
+    visibility: visible;
 }
 
 /* Merit Section Styles */
