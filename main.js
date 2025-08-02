@@ -1,5 +1,96 @@
 // Performance-optimized animations and interactions
 
+// ✨ Initialize particles animation
+function initParticles() {
+    const particles = document.querySelectorAll('.particle');
+    particles.forEach((particle, index) => {
+        // Random positioning
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 20 + 's';
+        particle.style.animationDuration = (20 + Math.random() * 10) + 's';
+    });
+}
+
+// 🎨 Advanced scroll reveal animations
+function initScrollReveal() {
+    const revealElements = document.querySelectorAll('.scroll-reveal');
+    
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+    
+    revealElements.forEach(element => {
+        revealObserver.observe(element);
+    });
+}
+
+// 🌟 Enhanced competency bar animations
+function animateCompetencyBars() {
+    const competencyBars = document.querySelectorAll('.competency-progress');
+    
+    const barObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const bar = entry.target;
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 200);
+                barObserver.unobserve(bar);
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    competencyBars.forEach(bar => {
+        barObserver.observe(bar);
+    });
+}
+
+// 🎯 Counter animation for metrics
+function animateCounters() {
+    const counters = document.querySelectorAll('.metric-number');
+    
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const counter = entry.target;
+                const target = counter.textContent;
+                const isNumber = /^\d+/.test(target);
+                
+                if (isNumber) {
+                    const finalNumber = parseInt(target);
+                    let currentNumber = 0;
+                    const increment = finalNumber / 50;
+                    
+                    const timer = setInterval(() => {
+                        currentNumber += increment;
+                        if (currentNumber >= finalNumber) {
+                            counter.textContent = target;
+                            clearInterval(timer);
+                        } else {
+                            counter.textContent = Math.floor(currentNumber) + target.replace(/^\d+/, '');
+                        }
+                    }, 30);
+                }
+                counterObserver.unobserve(counter);
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    counters.forEach(counter => {
+        counterObserver.observe(counter);
+    });
+}
+
 // Intersection Observer for lazy loading and animations
 const observerOptions = {
     threshold: 0.1,
@@ -43,6 +134,12 @@ function animateOnScroll() {
 
 // Initialize elements for animation
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize new animations
+    initParticles();
+    initScrollReveal();
+    animateCompetencyBars();
+    animateCounters();
+    
     // Initialize lazy loading for images
     const lazyImages = document.querySelectorAll('img[data-src]');
     lazyImages.forEach(img => {
