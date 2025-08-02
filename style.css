@@ -800,11 +800,19 @@ nav {
 }
 
 .highlights-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    gap: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
     position: relative;
     z-index: 2;
+}
+
+/* Competencies and Value Proposition Side-by-Side Layout */
+.competencies-value-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
 }
 
 .metrics-dashboard {
@@ -816,6 +824,7 @@ nav {
     transition: var(--transition);
     position: relative;
     overflow: hidden;
+    margin-bottom: 30px;
 }
 
 .metrics-dashboard:hover {
@@ -1002,7 +1011,8 @@ nav {
     border-radius: var(--border-radius-lg);
     border: 1px solid var(--glass-border);
     transition: var(--transition);
-    grid-column: 1 / -1;
+    position: relative;
+    overflow: hidden;
 }
 
 .value-proposition:hover {
@@ -1035,9 +1045,9 @@ nav {
 }
 
 .value-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
 }
 
 .value-item {
@@ -1079,11 +1089,36 @@ nav {
 
 .value-text p {
     color: var(--text-secondary);
-    font-size: 14px;
+    font-size: 15px;
     line-height: 1.6;
     margin: 0;
 }
 
+/* Responsive Design for Side-by-Side Layout */
+@media (max-width: 1200px) {
+    .competencies-value-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .highlights-grid {
+        gap: 30px;
+    }
+    
+    .competencies-value-container {
+        gap: 25px;
+    }
+    
+    .value-content {
+        gap: 20px;
+    }
+    
+    .value-item {
+        padding: 20px;
+    }
+}
 /* 🎨 SKILLS SECTION - MODERN CARD DESIGN */
 .skills {
     padding: 120px 0;
