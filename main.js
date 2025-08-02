@@ -393,6 +393,9 @@ function updateProfileImage(workingSrc) {
     }
 }
 
+// Make updateProfileImage globally accessible
+window.updateProfileImage = updateProfileImage;
+
 // Enhanced profile image loading
 document.addEventListener('DOMContentLoaded', () => {
     const profileImg = document.querySelector('.profile-image');
