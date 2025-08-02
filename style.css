@@ -20,8 +20,6 @@
     --border-radius-lg: 16px;
 }
 
-/* Import Professional Fonts */
-
 * {
     margin: 0;
     padding: 0;
@@ -36,6 +34,29 @@ body {
     line-height: 1.6;
     font-weight: 400;
     font-size: 16px;
+}
+
+/* Critical CSS for above-the-fold content */
+.hero, .hero-content, .hero-text, .hero-visual, .profile-image {
+    will-change: transform;
+}
+
+/* Optimize image loading */
+img {
+    max-width: 100%;
+    height: auto;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
+
+/* Lazy loading support */
+img[loading="lazy"] {
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+img[loading="lazy"].loaded {
+    opacity: 1;
 }
 
 .container {
@@ -342,6 +363,8 @@ nav {
     box-shadow: var(--shadow-card);
     transition: opacity 0.3s ease;
     background: #f8fafc;
+    /* Responsive sizing */
+    max-width: 250px;
 }
 
 .profile-glow {
@@ -355,12 +378,6 @@ nav {
     opacity: 0.12;
     filter: blur(24px);
     animation: pulse 4s ease-in-out infinite;
-}
-
-/* Image loading optimization */
-.profile-image {
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: crisp-edges;
 }
 
 @keyframes pulse {
@@ -1699,6 +1716,16 @@ footer {
     .stats-grid {
         grid-template-columns: 1fr;
     }
+    
+    /* Responsive profile image */
+    .profile-container {
+        width: 200px;
+        height: 200px;
+    }
+    
+    .profile-image {
+        max-width: 200px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1724,6 +1751,10 @@ footer {
         height: 280px;
     }
     
+    .profile-image {
+        max-width: 150px;
+    }
+    
     .logo-icon {
         width: 45px;
         height: 45px;
@@ -1732,5 +1763,28 @@ footer {
     
     .logo-text {
         font-size: 20px;
+    }
+}
+
+/* Performance optimizations */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Print styles */
+@media print {
+    .floating-elements,
+    .hero-background,
+    .profile-glow {
+        display: none;
+    }
+    
+    * {
+        box-shadow: none !important;
+        text-shadow: none !important;
     }
 }

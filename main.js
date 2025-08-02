@@ -1,44 +1,108 @@
-// Simple fade-in animation for elements
+// Performance-optimized animations and interactions
+
+// Intersection Observer for lazy loading and animations
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '50px 0px -50px 0px'
+};
+
+// Lazy loading for images
+const imageObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const img = entry.target;
+            if (img.dataset.src) {
+                img.src = img.dataset.src;
+                img.classList.add('loaded');
+                imageObserver.unobserve(img);
+            }
+        }
+    });
+}, observerOptions);
+
+// Animation observer
+const animationObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+            animationObserver.unobserve(entry.target);
+        }
+    });
+}, observerOptions);
+
+// Optimized scroll-based animations
 function animateOnScroll() {
     const elements = document.querySelectorAll('[data-aos]');
-    const windowHeight = window.innerHeight;
     
+    // Use Intersection Observer instead of scroll events for better performance
     elements.forEach(element => {
-        const elementTop = element.getBoundingClientRect().top;
-        
-        if (elementTop < windowHeight - 100) {
-            element.style.opacity = '1';
-            element.style.transform = 'translateY(0)';
-        }
+        animationObserver.observe(element);
     });
 }
 
 // Initialize elements for animation
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize lazy loading for images
+    const lazyImages = document.querySelectorAll('img[data-src]');
+    lazyImages.forEach(img => {
+        imageObserver.observe(img);
+    });
+    
+    // Initialize animations
     const elements = document.querySelectorAll('[data-aos]');
     elements.forEach(element => {
         element.style.opacity = '0';
         element.style.transform = 'translateY(30px)';
-        element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        element.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
     });
     
-    // Initial check
+    // Start animation observer
     animateOnScroll();
+    
+    // Preload critical resources
+    preloadCriticalResources();
 });
 
-// Listen for scroll events
-window.addEventListener('scroll', animateOnScroll);
+// Preload critical resources
+function preloadCriticalResources() {
+    // Preload profile image
+    const profileImg = document.querySelector('.profile-image');
+    if (profileImg && profileImg.src) {
+        const img = new Image();
+        img.onload = () => {
+            profileImg.style.opacity = '1';
+        };
+        img.src = profileImg.src;
+    }
+    
+    // Preload critical fonts
+    const fontPreloads = [
+        'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap',
+        'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap'
+    ];
+    
+    fontPreloads.forEach(fontUrl => {
+        const link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = 'style';
+        link.href = fontUrl;
+        document.head.appendChild(link);
+    });
+}
 
-// Active navigation highlighting
+// Optimized navigation highlighting
 const sections = document.querySelectorAll('section[id]');
 const allNavLinks = document.querySelectorAll('.nav-link');
 
-window.addEventListener('scroll', () => {
+// Throttled scroll handler for better performance
+let scrollTimeout;
+function handleScroll() {
     let current = '';
     sections.forEach(section => {
         const sectionTop = section.offsetTop;
         const sectionHeight = section.clientHeight;
-        if (scrollY >= (sectionTop - 200)) {
+        if (window.scrollY >= (sectionTop - 200)) {
             current = section.getAttribute('id');
         }
     });
@@ -49,45 +113,64 @@ window.addEventListener('scroll', () => {
             link.classList.add('active');
         }
     });
-});
+}
+
+window.addEventListener('scroll', () => {
+    if (scrollTimeout) {
+        cancelAnimationFrame(scrollTimeout);
+    }
+    scrollTimeout = requestAnimationFrame(handleScroll);
+}, { passive: true });
 
 // Mobile menu
 const menuBtn = document.querySelector('.menu-btn');
 const navLinks = document.querySelector('.nav-links');
 
-menuBtn.addEventListener('click', () => {
-    menuBtn.classList.toggle('open');
-    navLinks.classList.toggle('active');
-});
+if (menuBtn && navLinks) {
+    menuBtn.addEventListener('click', () => {
+        menuBtn.classList.toggle('open');
+        navLinks.classList.toggle('active');
+    });
+}
 
-// Smooth scroll
+// Optimized smooth scroll
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
     });
 });
 
 // Optimized scroll effects
 let ticking = false;
+let lastScrollY = 0;
 
 function updateScrollEffects() {
-    const scrolled = window.pageYOffset;
+    const scrolled = window.scrollY;
     const header = document.querySelector('header');
     
-    // Header shadow effect
-    if (scrolled > 50) {
-        header.classList.add('scrolled');
-    } else {
-        header.classList.remove('scrolled');
-    }
-    
-    // Subtle parallax on hero
-    const heroContent = document.querySelector('.hero-content');
-    if (heroContent && scrolled < window.innerHeight) {
-        heroContent.style.transform = `translateY(${scrolled * 0.3}px)`;
+    // Only update if scroll position changed significantly
+    if (Math.abs(scrolled - lastScrollY) > 5) {
+        // Header shadow effect
+        if (scrolled > 50) {
+            header?.classList.add('scrolled');
+        } else {
+            header?.classList.remove('scrolled');
+        }
+        
+        // Subtle parallax on hero (only if in viewport)
+        const heroContent = document.querySelector('.hero-content');
+        if (heroContent && scrolled < window.innerHeight) {
+            heroContent.style.transform = `translateY(${scrolled * 0.2}px)`;
+        }
+        
+        lastScrollY = scrolled;
     }
     
     ticking = false;
@@ -98,25 +181,97 @@ window.addEventListener('scroll', () => {
         requestAnimationFrame(updateScrollEffects);
         ticking = true;
     }
-});
+}, { passive: true });
 
-// Form submission
+// Enhanced form submission with validation
 const form = document.querySelector('.contact-form');
-form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    // Add your form submission logic here
-    alert('Thank you for your message! I will get back to you soon.');
-    form.reset();
-});
+if (form) {
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        // Basic form validation
+        const formData = new FormData(form);
+        const name = formData.get('name');
+        const email = formData.get('email');
+        const message = formData.get('message');
+        
+        if (!name || !email || !message) {
+            alert('Please fill in all required fields.');
+            return;
+        }
+        
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            alert('Please enter a valid email address.');
+            return;
+        }
+        
+        // Show loading state
+        const submitBtn = form.querySelector('.submit-btn');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        submitBtn.disabled = true;
+        
+        // Simulate form submission (replace with actual submission logic)
+        setTimeout(() => {
+            alert('Thank you for your message! I will get back to you soon.');
+            form.reset();
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }, 1500);
+    });
+}
 
-// Preload critical images
+// Enhanced image loading with error handling
 document.addEventListener('DOMContentLoaded', () => {
     const profileImage = document.querySelector('.profile-image');
     if (profileImage) {
         const img = new Image();
         img.onload = () => {
             profileImage.style.opacity = '1';
+            profileImage.classList.add('loaded');
+        };
+        img.onerror = () => {
+            console.warn('Profile image failed to load');
+            profileImage.style.opacity = '0.5';
         };
         img.src = profileImage.src;
     }
 });
+
+// Performance monitoring
+if ('performance' in window) {
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            const perfData = performance.getEntriesByType('navigation')[0];
+            console.log('Page Load Time:', perfData.loadEventEnd - perfData.fetchStart, 'ms');
+            
+            // Log Core Web Vitals if available
+            if ('web-vital' in window) {
+                // This would integrate with web-vitals library if included
+                console.log('Core Web Vitals monitoring enabled');
+            }
+        }, 0);
+    });
+}
+
+// Service Worker registration for caching (if available)
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+                console.log('SW registered: ', registration);
+            })
+            .catch(registrationError => {
+                console.log('SW registration failed: ', registrationError);
+            });
+    });
+}
+
+// Reduce motion for accessibility
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+if (prefersReducedMotion.matches) {
+    // Disable animations for users who prefer reduced motion
+    document.documentElement.style.setProperty('--transition', 'none');
+}
