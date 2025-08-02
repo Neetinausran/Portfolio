@@ -378,6 +378,16 @@ nav {
     position: relative;
     z-index: 2;
     box-shadow: var(--shadow-glow);
+    loading: lazy;
+    transition: opacity 0.3s ease;
+}
+
+.profile-image:not([src]) {
+    opacity: 0;
+}
+
+.profile-image[src] {
+    opacity: 1;
 }
 
 .profile-glow {
@@ -625,6 +635,58 @@ nav {
 .experience {
     padding: 120px 0;
     background: var(--secondary-color);
+}
+
+.experience-summary {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-top: 15px;
+    font-weight: 500;
+}
+
+.experience-overview {
+    margin-bottom: 80px;
+}
+
+.experience-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.exp-stat {
+    background: var(--card-bg);
+    padding: 30px 20px;
+    border-radius: 16px;
+    text-align: center;
+    border: 1px solid var(--card-border);
+    transition: var(--transition);
+    box-shadow: var(--shadow-card);
+}
+
+.exp-stat:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-hover);
+}
+
+.exp-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+}
+
+.exp-label {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.3px;
 }
 
 .timeline {
