@@ -13,10 +13,32 @@ const swiper = new Swiper('.swiper-container', {
         clickable: true
     },
     breakpoints: {
-        768: {
+        header.classList.add('scrolled');
             slidesPerView: 2
-        }
+        header.classList.remove('scrolled');
     }
+});
+
+// Active navigation highlighting
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+
+window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (scrollY >= (sectionTop - 200)) {
+            current = section.getAttribute('id');
+        }
+    });
+
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+            link.classList.add('active');
+        }
+    });
 });
 
 // Custom cursor
