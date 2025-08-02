@@ -414,7 +414,27 @@ nav {
     margin-bottom: 48px;
     color: var(--text-color);
     line-height: 1.75;
-    font-weight: 400;
+    font-weight: 600;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.about-text p {
+    margin-bottom: 24px;
+    color: var(--text-color);
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+.about-text p:last-of-type {
+    margin-bottom: 32px;
+}
+
+.about-text strong {
+    color: var(--accent-color);
+    font-weight: 700;
 }
 
 .about-highlights {
