@@ -196,7 +196,7 @@ nav {
     position: relative;
     overflow: hidden;
     background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
-    padding: 120px 0 80px;
+    padding: 160px 0 80px;
 }
 
 .hero-background {
@@ -1608,6 +1608,10 @@ footer {
         cursor: pointer;
     }
     
+    .hero {
+        padding: 140px 0 60px;
+    }
+    
     .hero-text h1 {
         font-size: 2.8rem;
     }
@@ -1643,6 +1647,10 @@ footer {
 }
 
 @media (max-width: 480px) {
+    .hero {
+        padding: 120px 0 40px;
+    }
+    
     .hero-text h1 {
         font-size: 2.2rem;
     }
