@@ -8,6 +8,24 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <link rel="stylesheet" crossorigin href="/assets/index-HQE6JIYk.css">
+    <script>
+        // Profile image fallback system - defined early to be available for onload handlers
+        function updateProfileImage(workingSrc) {
+            const profileImg = document.querySelector('.profile-image');
+            const fallback = document.querySelector('.profile-fallback');
+            
+            if (profileImg && workingSrc) {
+                profileImg.src = workingSrc;
+                profileImg.style.display = 'block';
+                profileImg.style.opacity = '1';
+                if (fallback) fallback.style.display = 'none';
+                console.log('Profile image loaded successfully:', workingSrc);
+            }
+        }
+        
+        // Make updateProfileImage globally accessible
+        window.updateProfileImage = updateProfileImage;
+    </script>
 </head>
 <body>
     <div class="cursor"></div>

@@ -379,23 +379,6 @@ if ('serviceWorker' in navigator) {
     });
 }
 
-// Profile image fallback system
-function updateProfileImage(workingSrc) {
-    const profileImg = document.querySelector('.profile-image');
-    const fallback = document.querySelector('.profile-fallback');
-    
-    if (profileImg && workingSrc) {
-        profileImg.src = workingSrc;
-        profileImg.style.display = 'block';
-        profileImg.style.opacity = '1';
-        if (fallback) fallback.style.display = 'none';
-        console.log('Profile image loaded successfully:', workingSrc);
-    }
-}
-
-// Make updateProfileImage globally accessible
-window.updateProfileImage = updateProfileImage;
-
 // Enhanced profile image loading
 document.addEventListener('DOMContentLoaded', () => {
     const profileImg = document.querySelector('.profile-image');
