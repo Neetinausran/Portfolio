@@ -403,10 +403,8 @@ nav {
 }
 
 .about-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: start;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 .about-text .lead {
