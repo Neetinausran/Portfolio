@@ -93,38 +93,3 @@ form.addEventListener('submit', (e) => {
     alert('Thank you for your message! I will get back to you soon.');
     form.reset();
 });
-
-// Animate stats numbers
-function animateStats() {
-    const statNumbers = document.querySelectorAll('.stat-number');
-    
-    statNumbers.forEach(stat => {
-        const target = stat.getAttribute('data-target');
-        if (target && !isNaN(target)) {
-            let current = 0;
-            const increment = target / 50;
-            const timer = setInterval(() => {
-                current += increment;
-                if (current >= target) {
-                    current = target;
-                    clearInterval(timer);
-                }
-                stat.textContent = Math.floor(current) + (stat.textContent.includes('%') ? '%' : (stat.textContent.includes('/') ? '/13' : (stat.textContent.includes('Top') ? '% Top' : '+')));
-            }, 30);
-        }
-    });
-}
-
-// Trigger stats animation when in view
-const statsSection = document.querySelector('.stats-grid');
-if (statsSection) {
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                animateStats();
-                observer.unobserve(entry.target);
-            }
-        });
-    });
-    observer.observe(statsSection);
-}
