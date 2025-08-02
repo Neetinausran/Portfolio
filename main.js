@@ -1,5 +1,14 @@
 // Performance-optimized animations and interactions
 
+// Profile image update function
+function updateProfileImage() {
+    const profileImage = document.querySelector('.profile-image');
+    if (profileImage) {
+        profileImage.style.opacity = '1';
+        profileImage.classList.add('loaded');
+    }
+}
+
 // ✨ Initialize particles animation
 function initParticles() {
     const particles = document.querySelectorAll('.particle');
