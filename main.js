@@ -42,11 +42,12 @@ function initializeProfileImage() {
     
     // Image paths to try in order
     const imagePaths = [
+        './public/1760610507625.jpg',
+        'public/1760610507625.jpg',
+        '/public/1760610507625.jpg',
         'WhatsApp Image 2025-05-01 at 13.34.27_7e81fe82.jpg',
         './WhatsApp Image 2025-05-01 at 13.34.27_7e81fe82.jpg',
-        '/WhatsApp Image 2025-05-01 at 13.34.27_7e81fe82.jpg',
-        './public/WhatsApp Image 2025-05-01 at 13.34.27_7e81fe82.jpg',
-        'https://stackblitz.com/storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBCQndKaFFFPSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--bd27fe28fdde8e63081a70e3edfdcdbfcb155436//WhatsApp Image 2025-05-01 at 13.34.27_7e81fe82.jpg'
+        './public/WhatsApp Image 2025-05-01 at 13.34.27_7e81fe82.jpg'
     ];
     
     let currentIndex = 0;
